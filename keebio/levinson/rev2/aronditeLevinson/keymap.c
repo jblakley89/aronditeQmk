@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	 /*******Misc  Layer **************************************************************
      * ,-----------------------------------.              ,-----------------------------------.
-     * |     |  P  |  B  | HUE-| HUE+|     |              |     |     |     |     |     |     |
+     * |cadel|  P  |  B  | HUE-| HUE+|     |              |     |     |     |     |     |     |
      * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
      * |     |  R  | SW  | SAT-| SAT+|     |              |     |     |     |     |     |_QWR |
      * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_MIS] = LAYOUT(
 
-    KC_NO,  RGB_M_P,  RGB_M_B,  RGB_HUD,RGB_HUI,KC_NO,		KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    LCA(KC_DEL),RGB_M_P,  RGB_M_B,  RGB_HUD,RGB_HUI,KC_NO,		KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
     KC_NO,  RGB_M_R,  RGB_M_SW, RGB_SAD,RGB_SAI,KC_NO,   	KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  TG(_QWR),
     KC_NO,  RGB_M_SN, RGB_M_K,  RGB_VAD,RGB_VAI,KC_NO,     	KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
     KC_NO,  RGB_M_X,  RGB_M_G,  RGB_SPD,RGB_SPI,KC_NO,     	KC_NO,  RGB_TOG,KC_NO,  KC_NO,  KC_NO,  KC_NO
