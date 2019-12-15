@@ -2,204 +2,212 @@
 
 extern keymap_config_t keymap_config;
 
-enum ergodox_layers {
-  _COL,
-  _MIS,
-  _QWR,
-  _SYM,
-  _NUM,
-  _NAV,
-  _FUN,
-  _GAM,
-  _GAMFUN,
-  _GAMNUM
-  };
+#define _COLEMAK 0
+#define _QWERTY 1
+#define _GAME 2
+#define _LOWER 6
+#define _RAISE 7
+#define _GAMELOWER 8
+#define _GAMERAISE 9
+#define _ADJUST 16
+
+enum custom_keycodes {
+  COLEMAK = SAFE_RANGE,
+  QWERTY,
+  GAME,
+  LOWER,
+  RAISE,
+  GAMELOWER,
+  GAMERAISE,
+  ADJST,
+};
+
+enum {
+  TD_CTRL_ESC = 0
+};
+
+#define KC_ KC_TRNS
+
+#define KC_COLMK COLEMAK
+#define KC_QWERT QWERTY
+#define KC_GAME GAME
+#define KC_LOWER LOWER
+#define KC_RAISE RAISE
+#define KC_GAMEL GAMELOWER
+#define KC_GAMER GAMERAISE
+#define KC_LOWGT LT(_LOWER, LSFT(KC_DOT))
+#define KC_RAIS0 LT(_RAISE, KC_P0)
+
+#define KC_ESCTL TD(TD_CTRL_ESC) 
+#define KC_ENSHF KC_SFTENT 
+#define KC_GLOMF RGB_MODE_FORWARD
+#define KC_GLOMR RGB_MODE_REVERSE
+#define KC_GLOHI RGB_HUI
+#define KC_GLOHD RGB_HUD
+#define KC_GLOSI RGB_SAI
+#define KC_GLOSD RGB_SAD
+#define KC_GLOVI RGB_VAI
+#define KC_GLOVD RGB_VAD
+#define KC_GLOEI RGB_SPI
+#define KC_GLOED RGB_SPD
+#define KC_FLASH RESET
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[_COL] = LAYOUT(
-    /******* COLMAK Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * | Tab |  Q  |  W  |  F  |  P  |  G  |              |  J  |  L  |  U  |  Y  |  ;  | ESC |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * | Bksp|  A  |  R  |  S  |  T  |  D  |              |  H  |  N  |  E  |  I  |  O  |  "' |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * | Lsft|  Z  |  X  |  C  |  V  |  B  |              |  K  |  M  |  ,  |  .  |  /? | Ent |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * | Lctr| Lgui| Lalt|     | _NUM| Spc |              | _NAV| _SYM| _FUN|     | _GAM| _QWR|
-     * `-----------------------------------'              `-----------------------------------'
-     */
 
-    KC_TAB,  KC_Q,   KC_W,   KC_F,  KC_P,    KC_G,       KC_J,   KC_L,   KC_U,   KC_Y,   KC_SCLN,LT(_MIS,KC_ESC),
-    KC_BSPC, KC_A,   KC_R,   KC_S,  KC_T,    KC_D,       KC_H,   KC_N,   KC_E,   KC_I,   KC_O,   KC_QUOT,
-    KC_LSFT, KC_Z,   KC_X,   KC_C,  KC_V,    KC_B,       KC_K,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,RSFT_T(KC_ENT),
-    KC_LCTL,KC_LGUI,KC_LALT, KC_NO, MO(_NUM),KC_SPC,     MO(_NAV),MO(_SYM),MO(_FUN),KC_NO,TG(_GAM),TG(_QWR)
-    ),
-
-	 /*******Misc  Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |  P  |  B  | HUE-| HUE+|     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  R  | SW  | SAT-| SAT+|     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     | SN  |  K  | BRI-| BRI+|     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  X  |  G  | EFF-| EFF+|     |              |     |BLIO |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-
-	[_MIS] = LAYOUT(
-
-    KC_NO,RGB_M_P,  RGB_M_B,  RGB_HUD,RGB_HUI,KC_NO,		KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_NO,  RGB_M_R,  RGB_M_SW, RGB_SAD,RGB_SAI,KC_NO,   	KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_NO,  RGB_M_SN, RGB_M_K,  RGB_VAD,RGB_VAI,KC_NO,     	KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_NO,  RGB_M_X,  RGB_M_G,  RGB_SPD,RGB_SPI,KC_NO,     	KC_NO,  RGB_TOG,KC_NO,  KC_NO,  KC_NO,  KC_NO
+	[_COLEMAK] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+        TAB ,  Q  ,  W  ,  F  ,  P  ,  G  ,  J  ,  L  ,  U  ,  Y  , SCLN, BSPC,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+       ESCTL,  A  ,  R  ,  S  ,  T  ,  D  ,  H  ,  N  ,  E  ,  I  ,  O  , QUOT,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  K  ,  M  , COMM,  DOT, SLSH,ENSHF,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        LCTL, LGUI, LALT,  NO ,LOWER, SPC , LSFT,RAISE,  NO ,  NO ,  NO ,  NO 
+    //`-----------------------------------'----------------------------------'
 	),
-	[_QWR] = LAYOUT(
-    /******* QWERTY Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |  Q  |  W  |  E  |  R  |  T  |              |  Y  |  U  |  I  |  O  |  P  | ESC |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  A  |  S  |  D  |  F  |  G  |              |  H  |  J  |  K  |  L  |  ;  |  "' |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  Z  |  X  |  C  |  V  |  B  |              |  N  |  M  |  ,  |  .  |  /? |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-    KC_TRNS,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_ESC,
-    KC_TRNS,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,       KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_TRNS,
-    KC_TRNS,  KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,       KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_TRNS,
-    KC_TRNS,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+	[_QWERTY] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+        TAB ,  Q  ,  W  ,  E  ,  R  ,  T  ,  Y  ,  U  ,  I  ,  O  ,  P  , BSPC,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+       ESCTL,  A  ,  S  ,  D  ,  F  ,  G  ,  H  ,  J  ,  K  ,  L  , SCLN, QUOT,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM, DOT , SLSH,ENSHF,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        LCTL, LGUI, LALT,  NO ,LOWER, SPC , LSFT,RAISE,  NO ,  NO ,  NO ,  NO 
+    //`-----------------------------------'-----------------------------------'
+	),
+	[_GAME] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+        TAB ,  Q  ,  W  ,  E  ,  R  ,  T  ,  Y  ,  U  ,  I  ,  O  ,  P  , BSPC,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        CAPS,  A  ,  S  ,  D  ,  F  ,  G  ,  H  ,  J  ,  K  ,  L  , SCLN, QUOT,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM,  DOT, SLSH,ENSHF,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+       ESCTL, LGUI, LALT,  NO ,GAMEL, SPC , RSFT,GAMER,  NO , RALT, RGUI, RCTL 
+    //`-----------------------------------'-----------------------------------'
+	),
+	[_LOWER] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+            , F1  , F2  , F3  , F4  , F5  ,     ,  7  ,  8  ,  9  , ASTR,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            , F6  , F7  , F8  , F9  , F10 ,     ,  4  ,  5  ,  6  , MINS,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            , F11 , F12 ,     ,     ,     ,     ,  1  ,  2  ,  3  ,  EQL,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,  0  ,     , NO  , PDOT,  ENT,     
+    //`-----------------------------------'-----------------------------------'
+	),
+	[_RAISE] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+            , EXLM,  AT , LPRN, RPRN, AMPR, PGUP, HOME,  UP , END ,  NO ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            , HASH, DLR , LCBR, RCBR, PIPE, PGDN, LEFT, DOWN, RGHT,  NO ,  NO ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        LSFT, PERC, CIRC, LBRC, RBRC, GRV ,  NO ,  NO ,  NO ,  NO ,  NO ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+        DEL ,     ,     ,  NO ,     , BSLS,     ,     ,     ,     ,     ,     
+    //`-----------------------------------'-----------------------------------'
     ),
-	[_NUM] = LAYOUT(
-    /******* SYMBOL Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |     |     |     |     |     |              |     |  7  |  8  |  9  |  *  |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |  4  |  5  |  6  |  -  |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |  1  |  2  |  3  |  =  |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              | Ent |  0  |     |  .  |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-     KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,  KC_7,   KC_8,   KC_9,   KC_ASTR,KC_TRNS,
-     KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,  KC_4,   KC_5,   KC_6,   KC_MINS,KC_NO,
-     KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,  KC_1,   KC_2,   KC_3,   KC_EQL, KC_TRNS,
-     KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,  KC_NO,  KC_TRNS,   KC_ENT,KC_0,   KC_NO,  KC_DOT, KC_NO,  KC_NO
+	[_GAMELOWER] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+         NO , F1  , F2  , F3  , F4  , F5  , NLCK,  P7 ,  P8 ,  P9 , PAST, PSLS,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+         NO , F6  , F7  , F8  , F9  , F10 ,     ,  P4 ,  P5 ,  P6 , PPLS, PMNS,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+         NO , F11 , F12 ,     ,     ,     ,     ,  P1 ,  P2 ,  P3 , PEQL, PCMM,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,     ,  P0 ,  NO , PDOT, PENT,  NO
+    //`-----------------------------------'-----------------------------------'
     ),
-	[_SYM] = LAYOUT(
-    /******* SYMBOL Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |  !  |  @  |  (  |  )  |  &  |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * | Del |  #  |  $  |  {  |  }  |  |  |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * | Lsft|  %  |  ^  |  [  |  ]  |  ~  |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |  <  |  >  |  \  |              |     |     |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-    KC_NO,  KC_EXLM,KC_AT,  KC_LPRN,KC_RPRN,KC_AMPR,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_DEL, KC_HASH,KC_DLR, KC_LCBR,KC_RCBR,KC_PIPE,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_LSFT,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_GRV,       KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_TRNS,KC_TRNS,KC_TRNS,  KC_LT,  KC_GT,  KC_BSLS,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
+	[_GAMERAISE] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     
+    //`-----------------------------------'-----------------------------------'
     ),
-	[_NAV] = LAYOUT(
-    /******* NAVIGATION Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |     |     |     |     |     |              | Pgup| Home| Up  | End |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              | Pgdn| Lft | Dwn | Rgt |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-    KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_PGUP,KC_HOME,KC_UP,  KC_END, KC_NO,  KC_NO,
-    KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,KC_NO,  KC_NO,
-    KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,
-    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,  KC_TRNS,      KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-    ),
-	[_FUN] = LAYOUT(
-    /******* FUNCTION Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * | F1  | F2  | F3  | F4  | F5  | F6  |              | F7  | F8  |  F9 | F10 | F11 | F12 |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,        KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,
-    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,  KC_NO,  KC_NO,        KC_PSCR,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-    ),
-	[_GAM] = LAYOUT(
-    /******* QWERTY Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |  Q  |  W  |  E  |  R  |  T  |              |  Y  |  U  |  I  |  O  |  P  |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  A  |  S  |  D  |  F  |  G  |              |  H  |  J  |  K  |  L  |  ;  |  "' |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  Z  |  X  |  C  |  V  |  B  |              |  N  |  M  |  ,  |  .  |  /? |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     | _GNM| _GFN|     |              |     |     | _GAM|     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-    KC_TRNS,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,           KC_Y,  KC_U,   KC_I,   KC_O,   KC_P,   KC_TRNS,
-    KC_TRNS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,           KC_H,  KC_J,   KC_K,   KC_L,   KC_SCLN,KC_TRNS,
-    KC_TRNS,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,           KC_N,  KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_TRNS,
-    KC_TRNS,KC_TRNS,KC_TRNS,MO(_GAMNUM),MO(_GAMFUN),KC_TRNS,KC_TRNS,KC_TRNS,TG(_GAM),KC_RALT,KC_RGUI,KC_RCTL
-    ),
-	[_GAMFUN] = LAYOUT(
-    /******* FUNCTION Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     | F1  | F2  | F3  | F4  | F5  |              | F6  | F7  | F8  |  F9 | F10 | F11 |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |  1  |  2  |  3  |  4  |  5  |              |     |     |     |     |     | F12 |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-    KC_NO,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,        KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11,
-    KC_NO,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,         KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_F12,
-    KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-    ),
-	[_GAMNUM] = LAYOUT(
-    /******* SYMBOL Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |     |     |     |     |     |              | NLCK|  7  |  8  |  9  |  *  |  /  |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |  4  |  5  |  6  |  +  |  -  |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |  1  |  2  |  3  |  =  |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |  0  |  .  |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
-     KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NLCK,KC_P7,  KC_P8,  KC_P9,  KC_PAST,KC_PSLS,
-     KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,  KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_PMNS,
-     KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,     KC_NO,  KC_P1,  KC_P2,  KC_P3,  KC_EQL, KC_TRNS,
-     KC_TRNS,KC_TRNS,KC_TRNS,KC_NO,  KC_NO,  KC_TRNS,   KC_TRNS,KC_TRNS,KC_P0,  KC_DOT, KC_NO,  KC_NO
+	[_ADJUST] = LAYOUT_kc(
+    //,-----------------------------------.-----------------------------------.
+       GLOMF,GLOMR,GLOHI,GLOSI,GLOVI,GLOEI,COLMK,QWERT, GAME,     ,     ,FLASH,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,GLOHD,GLOSD,GLOVD,GLOED,     ,     ,     ,     ,     ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+    //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
+            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     
+    //`-----------------------------------'-----------------------------------'
     )
 };
 
-/*******  Layer **************************************************************
-     * ,-----------------------------------.              ,-----------------------------------.
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * |-----+-----+-----+-----+-----+-----|              |-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |              |     |     |     |     |     |     |
-     * `-----------------------------------'              `-----------------------------------'
-     */
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_CTRL_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_ESC)
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+    case COLEMAK:
+      if (record->event.pressed) {
+        default_layer_set(1UL<<_COLEMAK);
+      }
+      return false;
+      break;
+    case GAME:
+      if (record->event.pressed) {
+        default_layer_set(1UL<<_GAME);
+      }
+      return false;
+      break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case GAMELOWER:
+      if (record->event.pressed) {
+        layer_on(_GAMELOWER);
+        update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case GAMERAISE:
+      if (record->event.pressed) {
+        layer_on(_GAMERAISE);
+        update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
