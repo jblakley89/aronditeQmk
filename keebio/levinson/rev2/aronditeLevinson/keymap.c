@@ -38,7 +38,7 @@ enum {
 #define KC_LOWGT LT(_LOWER, LSFT(KC_DOT))
 #define KC_RAIS0 LT(_RAISE, KC_P0)
 
-#define KC_ESCTL TD(TD_CTRL_ESC) 
+#define KC_ESCTL LCTL_T(KC_ESC) 
 #define KC_ENSHF KC_SFTENT 
 #define KC_GLOMF RGB_MODE_FORWARD
 #define KC_GLOMR RGB_MODE_REVERSE
@@ -50,7 +50,7 @@ enum {
 #define KC_GLOVD RGB_VAD
 #define KC_GLOEI RGB_SPI
 #define KC_GLOED RGB_SPD
-#define KC_FLASH RESET
+#define KC_RESET RESET
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -60,10 +60,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
        ESCTL,  A  ,  R  ,  S  ,  T  ,  D  ,  H  ,  N  ,  E  ,  I  ,  O  , QUOT,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  K  ,  M  , COMM,  DOT, SLSH,ENSHF,
+        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  K  ,  M  , COMM, DOT , SLSH,ENSHF,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-        LCTL, LGUI, LALT,  NO ,LOWER, SPC , LSFT,RAISE,  NO ,  NO ,  NO ,  NO 
-    //`-----------------------------------'----------------------------------'
+        LCTL, LGUI, LALT,  NO ,LOWER, SPC , LSFT,RAISE, LEFT, DOWN, UP  , RGHT
+    //`-----------------------------------'-----------------------------------'
 	),
 	[_QWERTY] = LAYOUT_kc(
     //,-----------------------------------.-----------------------------------.
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
         LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM, DOT , SLSH,ENSHF,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-        LCTL, LGUI, LALT,  NO ,LOWER, SPC , LSFT,RAISE,  NO ,  NO ,  NO ,  NO 
+        LCTL, LGUI, LALT,  NO ,LOWER, SPC , LSFT,RAISE, LEFT, DOWN, UP  , RGHT
     //`-----------------------------------'-----------------------------------'
 	),
 	[_GAME] = LAYOUT_kc(
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
         CAPS,  A  ,  S  ,  D  ,  F  ,  G  ,  H  ,  J  ,  K  ,  L  , SCLN, QUOT,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM,  DOT, SLSH,ENSHF,
+        LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM, DOT , SLSH,ENSHF,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
        ESCTL, LGUI, LALT,  NO ,GAMEL, SPC , RSFT,GAMER,  NO , RALT, RGUI, RCTL 
     //`-----------------------------------'-----------------------------------'
@@ -111,11 +111,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 	[_GAMELOWER] = LAYOUT_kc(
     //,-----------------------------------.-----------------------------------.
-         NO , F1  , F2  , F3  , F4  , F5  , NLCK,  P7 ,  P8 ,  P9 , PAST, PSLS,
+            , F1  , F2  , F3  , F4  , F5  , NLCK,  P7 ,  P8 ,  P9 , PAST, PSLS,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-         NO , F6  , F7  , F8  , F9  , F10 ,     ,  P4 ,  P5 ,  P6 , PPLS, PMNS,
+            , F6  , F7  , F8  , F9  , F10 ,     ,  P4 ,  P5 ,  P6 , PPLS, PMNS,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-         NO , F11 , F12 ,     ,     ,     ,     ,  P1 ,  P2 ,  P3 , PEQL, PCMM,
+            , F11 , F12 ,     ,     ,     ,     ,  P1 ,  P2 ,  P3 , PEQL, PCMM,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
             ,     ,     ,     ,     ,     ,     ,  P0 ,  NO , PDOT, PENT,  NO
     //`-----------------------------------'-----------------------------------'
@@ -133,11 +133,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 	[_ADJUST] = LAYOUT_kc(
     //,-----------------------------------.-----------------------------------.
-       GLOMF,GLOMR,GLOHI,GLOSI,GLOVI,GLOEI,COLMK,QWERT, GAME,     ,     ,FLASH,
+       GLOMF,GLOMR,GLOHI,GLOSI,GLOVI,GLOEI,COLMK,QWERT, GAME,     ,     ,RESET,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-            ,     ,GLOHD,GLOSD,GLOVD,GLOED,     ,     ,     ,     ,     ,     ,
+            ,     ,GLOHD,GLOSD,GLOVD,GLOED,     , PSCR,     ,     ,     ,     ,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-            ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,
+            ,     ,     ,     ,     ,     ,     , APP ,     ,     ,     ,     ,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
             ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     ,     
     //`-----------------------------------'-----------------------------------'
