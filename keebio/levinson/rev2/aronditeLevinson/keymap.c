@@ -50,7 +50,7 @@ enum {
 #define KC_GLOVD RGB_VAD
 #define KC_GLOEI RGB_SPI
 #define KC_GLOED RGB_SPD
-#define KC_RESET RESET
+#define KC_RST RESET
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
             , F11 , F12 ,     ,     ,     ,     ,  P1 ,  P2 ,  P3 , PEQL, PCMM,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-            ,     ,     ,     ,     ,     ,     ,  P0 ,  NO , PDOT, PENT,  NO
+            ,     ,     ,     ,     ,     ,  P0 ,     ,  NO , PDOT, PENT,  NO
     //`-----------------------------------'-----------------------------------'
     ),
 	[_GAMERAISE] = LAYOUT_kc(
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 	[_ADJUST] = LAYOUT_kc(
     //,-----------------------------------.-----------------------------------.
-       GLOMF,GLOMR,GLOHI,GLOSI,GLOVI,GLOEI,COLMK,QWERT, GAME,     ,     ,RESET,
+       GLOMF,GLOMR,GLOHI,GLOSI,GLOVI,GLOEI,COLMK,QWERT, GAME,     ,     , RST ,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
             ,     ,GLOHD,GLOSD,GLOVD,GLOED,     , PSCR,     ,     ,     ,     ,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
@@ -193,7 +193,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_GAMELOWER);
         update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
       } else {
-        layer_off(_LOWER);
+        layer_off(_GAMELOWER);
         update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
       }
       return false;
@@ -203,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_GAMERAISE);
         update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
       } else {
-        layer_off(_RAISE);
+        layer_off(_GAMERAISE);
         update_tri_layer(_GAMELOWER, _GAMERAISE, _ADJUST);
       }
       return false;
