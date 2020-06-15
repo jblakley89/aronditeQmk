@@ -51,6 +51,7 @@ enum {
 #define KC_GLOEI RGB_SPI
 #define KC_GLOED RGB_SPD
 #define KC_RST RESET
+#define KC_TDCE TD(TD_CTRL_ESC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -84,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
         LSFT,  Z  ,  X  ,  C  ,  V  ,  B  ,  N  ,  M  , COMM, DOT , SLSH,ENSHF,
     //|-----+-----+-----+-----+-----+-----|-----+-----+-----+-----+-----+-----|
-        LCTL, LGUI, LALT,  NO ,GAMEL, SPC , RSFT,GAMER,  NO , RALT, RGUI, RCTL 
+        TDCE, LGUI, LALT,  NO ,GAMEL, SPC , RSFT,GAMER,  NO , RALT, RGUI, RCTL 
     //`-----------------------------------'-----------------------------------'
 	),
 	[_LOWER] = LAYOUT_kc(
